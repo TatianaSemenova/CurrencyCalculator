@@ -1,0 +1,53 @@
+<div class="wrapper">
+  <form class="content" [formGroup]="form" (change)="onChange()">
+    <div class="container">
+      <div class="currency">
+        <select class="currency__selector" formControlName="originCurrency">
+          <option *ngFor="let currency of currencies" [value]="currency.id">
+            {{ currency.id }}
+          </option>
+        </select>
+      </div>
+      <div class="quantity">
+        <input class="quantity__value" formControlName="originQuantity" type="text">
+      </div>
+    </div>
+    <app-validation-messages [control]="originCurrencyGroup" fieldName="Currency"></app-validation-messages>
+    <app-validation-messages [control]="originQuantityGroup" fieldName="Quantity"></app-validation-messages>
+
+    <ng-container formArrayName="calculationsList" *ngFor="let group of calculationsListGroup.controls; let i = index">
+      <ng-container [formGroupName]="i">
+        <ng-container [ngTemplateOutlet]= "currencyTemplate"
+                      [ngTemplateOutletContext]="{ form: group, index: i }">
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="newCurrencyGroup"
+                  [ngTemplateOutlet]="currencyTemplate"
+                  [ngTemplateOutletContext]="{ form: newCurrencyGroup }">
+    </ng-container>
+
+    <app-validation-messages *ngIf="newCurrencyGroup" [control]="newCurrencyForm" fieldName="Currency"></app-validation-messages>
+    <button (click)="addCurrency()">Добавить валюту</button>
+  </form>
+</div>
+
+<ng-template #currencyTemplate let-form="form">
+  <ng-container [formGroup]="form">
+    <div class="container">
+      <div class="currency">
+        <select class="currency__selector" formControlName="currency">
+          <option *ngFor="let currency of currencies" [value]="currency.id">
+            {{ currency.id }}
+          </option>
+        </select>
+      </div>
+      <div class="quantity">
+        <input class="quantity__value" formControlName="quantity">
+      </div>
+    </div>
+  </ng-container>
+
+</ng-template>
+

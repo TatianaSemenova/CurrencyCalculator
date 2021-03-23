@@ -1,0 +1,24 @@
+.wrapper {
+  margin: 150px 0;
+}
+.content {
+  width: 300px;
+  margin: 0 auto;
+}
+.container {
+  display: flex;
+}
+
+.currency {
+  &__selector {
+    width: 60px;
+    height: 25px;
+  }
+}
+
+.quantity {
+  &__value {
+    width: 100px;
+    height: 19px;
+  }
+}
